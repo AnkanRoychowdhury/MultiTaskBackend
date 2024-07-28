@@ -59,4 +59,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public User findUserByEmail(String email) throws Exception {
+        try {
+            return this.userRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+    }
+
 }

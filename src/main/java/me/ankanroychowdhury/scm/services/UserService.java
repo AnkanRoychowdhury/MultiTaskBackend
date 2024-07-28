@@ -9,4 +9,5 @@ public interface UserService {
     User signUpUser(User user) throws Exception;
     List<User> getUsers() throws Exception;
     User signInUser(SignInDTO signInDTO) throws Exception;
+    User findUserByEmail(String email) throws Exception;
 }

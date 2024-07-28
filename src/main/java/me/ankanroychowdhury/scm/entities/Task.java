@@ -1,10 +1,7 @@
 package me.ankanroychowdhury.scm.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Task extends AuditBaseModel {
 
     @Column(nullable = false)
@@ -34,6 +32,9 @@ public class Task extends AuditBaseModel {
 
     private Date dueDate;
 
-    @ManyToMany(mappedBy = "assignedTasks", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "assignedTasks", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<User> assignees;
+
+    @ManyToOne
+    private User assignor;
 }
