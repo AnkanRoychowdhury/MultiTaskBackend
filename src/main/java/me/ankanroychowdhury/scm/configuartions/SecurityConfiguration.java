@@ -1,7 +1,6 @@
 package me.ankanroychowdhury.scm.configuartions;
 
 import lombok.RequiredArgsConstructor;
-import me.ankanroychowdhury.scm.entities.Role;
 import me.ankanroychowdhury.scm.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +24,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     private static final String [] WHITE_LIST_URL = {
             "/api/v1/users/auth/*",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "swagger-ui.html",
     };
 
     @Autowired

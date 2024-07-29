@@ -1,5 +1,13 @@
 package me.ankanroychowdhury.scm.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletResponse;
 import me.ankanroychowdhury.scm.adapters.UserRequestDtoToUserAdapter;
 import me.ankanroychowdhury.scm.dtos.AuthResponseDTO;
@@ -31,6 +39,14 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    @Operation(summary = "SignUp User", description = "Create User", tags = { "Users" })
+    @ApiResponses(value = {
+            @ApiResponse (
+                    responseCode = "201",
+                    description = "Successful user creation",
+                    content = @Content(schema = @Schema(implementation = User.class))
+            )
+    })
     @PostMapping("/auth/signup")
     public ResponseEntity<?> signUpUser(@RequestBody UserRequestDTO userRequestDTO) {
         try {
@@ -43,6 +59,15 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "SignIn User", description = "SignIn User", tags = {"Users"})
+    @Parameter(in = ParameterIn.HEADER, description = "Bearer Token", content = @Content(schema = @Schema(type = "string")))
+    @ApiResponses(value = {
+            @ApiResponse (
+                    responseCode = "200",
+                    description = "Successful user SignIn",
+                    content = @Content(schema = @Schema(implementation = AuthResponseDTO.class))
+            )
+    })
     @PostMapping("/auth/signin")
     public ResponseEntity<?> signUpUser(@RequestBody SignInDTO signInDTO, HttpServletResponse response) {
         try {
@@ -62,6 +87,14 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Get Users", description = "Get all user details", tags = { "Users" })
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully fetched users",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserResponseDTO.class)))
+            )
+    })
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {

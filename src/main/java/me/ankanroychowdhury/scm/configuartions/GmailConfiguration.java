@@ -91,24 +91,24 @@ public class GmailConfiguration implements CommandLineRunner {
 
             ListMessagesResponse listMessagesResponse = service.users().messages().list(user).setQ("label:project").execute();
             List<Message> messages = listMessagesResponse.getMessages();
-            for (Message message : messages) {
-                message = service.users().messages().get(user,message.getId()).setFormat("FULL").execute();
-                MessagePart messagePart = message.getPayload();
-                String messageContent = "";
-                String subject = "";
-                if(messagePart != null){
-                    List<MessagePartHeader> headers = messagePart.getHeaders();
-                    for(MessagePartHeader header : headers){
-                        if(header.getName().equals("Subject")){
-                            subject = header.getValue().trim();
-                            break;
-                        }
-                    }
-                }
-                messageContent = getContent(message);
-                System.out.println("Subject: " + subject);
-                System.out.println("Content: " + messageContent);
-            }
+//            for (Message message : messages) {
+//                message = service.users().messages().get(user,message.getId()).setFormat("FULL").execute();
+//                MessagePart messagePart = message.getPayload();
+//                String messageContent = "";
+//                String subject = "";
+//                if(messagePart != null){
+//                    List<MessagePartHeader> headers = messagePart.getHeaders();
+//                    for(MessagePartHeader header : headers){
+//                        if(header.getName().equals("Subject")){
+//                            subject = header.getValue().trim();
+//                            break;
+//                        }
+//                    }
+//                }
+//                messageContent = getContent(message);
+//                System.out.println("Subject: " + subject);
+//                System.out.println("Content: " + messageContent);
+//            }
         }catch (Exception e){
             e.printStackTrace();
             throw new Exception(e);
