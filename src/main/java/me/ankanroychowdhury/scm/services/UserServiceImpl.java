@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import me.ankanroychowdhury.scm.dtos.SignInDTO;
 import me.ankanroychowdhury.scm.entities.User;
 import me.ankanroychowdhury.scm.repositories.UserRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception(e);
         }
     }
-
+    @Cacheable("users")
     public List<User> getUsers() throws Exception {
         try {
             return this.userRepository.findAll();

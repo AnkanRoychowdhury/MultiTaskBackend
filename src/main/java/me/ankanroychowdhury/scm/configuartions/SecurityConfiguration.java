@@ -29,6 +29,7 @@ public class SecurityConfiguration {
             "/v3/api-docs/**",
             "/swagger-resources",
             "swagger-ui.html",
+            "/api/v1/users"
     };
 
     @Autowired

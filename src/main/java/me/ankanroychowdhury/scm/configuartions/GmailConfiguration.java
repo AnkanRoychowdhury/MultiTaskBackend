@@ -72,46 +72,46 @@ public class GmailConfiguration implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        try {
-            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
-            String user = "me";
-            ListLabelsResponse listResponse = service.users().labels().list(user).execute();
-            List<Label> labels = listResponse.getLabels();
-            if (labels.isEmpty()) {
-                System.out.println("No labels found.");
-            } else {
-                System.out.println("Labels:");
-                for (Label label : labels) {
-                    System.out.printf("- %s\n", label.getName());
-                }
-            }
-
-            ListMessagesResponse listMessagesResponse = service.users().messages().list(user).setQ("label:project").execute();
-            List<Message> messages = listMessagesResponse.getMessages();
-//            for (Message message : messages) {
-//                message = service.users().messages().get(user,message.getId()).setFormat("FULL").execute();
-//                MessagePart messagePart = message.getPayload();
-//                String messageContent = "";
-//                String subject = "";
-//                if(messagePart != null){
-//                    List<MessagePartHeader> headers = messagePart.getHeaders();
-//                    for(MessagePartHeader header : headers){
-//                        if(header.getName().equals("Subject")){
-//                            subject = header.getValue().trim();
-//                            break;
-//                        }
-//                    }
+//        try {
+//            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//            Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+//                    .setApplicationName(APPLICATION_NAME)
+//                    .build();
+//            String user = "me";
+//            ListLabelsResponse listResponse = service.users().labels().list(user).execute();
+//            List<Label> labels = listResponse.getLabels();
+//            if (labels.isEmpty()) {
+//                System.out.println("No labels found.");
+//            } else {
+//                System.out.println("Labels:");
+//                for (Label label : labels) {
+//                    System.out.printf("- %s\n", label.getName());
 //                }
-//                messageContent = getContent(message);
-//                System.out.println("Subject: " + subject);
-//                System.out.println("Content: " + messageContent);
 //            }
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new Exception(e);
-        }
+//
+//            ListMessagesResponse listMessagesResponse = service.users().messages().list(user).setQ("label:project").execute();
+//            List<Message> messages = listMessagesResponse.getMessages();
+////            for (Message message : messages) {
+////                message = service.users().messages().get(user,message.getId()).setFormat("FULL").execute();
+////                MessagePart messagePart = message.getPayload();
+////                String messageContent = "";
+////                String subject = "";
+////                if(messagePart != null){
+////                    List<MessagePartHeader> headers = messagePart.getHeaders();
+////                    for(MessagePartHeader header : headers){
+////                        if(header.getName().equals("Subject")){
+////                            subject = header.getValue().trim();
+////                            break;
+////                        }
+////                    }
+////                }
+////                messageContent = getContent(message);
+////                System.out.println("Subject: " + subject);
+////                System.out.println("Content: " + messageContent);
+////            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            throw new Exception(e);
+//        }
     }
 }
